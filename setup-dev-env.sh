@@ -10,7 +10,7 @@ fi
 
 apt-get update
 apt-get install -y git
-apt-get install curl
+apt-get install -y curl
 
 wget https://storage.googleapis.com/golang/go1.8.1.linux-386.tar.gz
 echo 'export PATH="$PATH:/usr/local/go/bin"' >> ~/.profile
