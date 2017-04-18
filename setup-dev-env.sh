@@ -24,5 +24,6 @@ wget https://raw.githubusercontent.com/xlucas/go-vim-install/master/install.sh
 chmod +x install.sh
 ./install.sh -vim
 ./install.sh -work $HOME/go/src
+apt-get install -y vim
 
 exit 0
