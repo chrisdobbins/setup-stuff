@@ -12,7 +12,7 @@ sudo add-apt-repository universe && sudo add-apt-repository multiverse
 sudo apt-get update
 
 # will allow restricted/proprietary media formats to be played...and a bunch of other stuff
-sudo apt-get install ubuntu-restricted-extras
+sudo apt-get install -y ubuntu-restricted-extras
 
 if [ -z "which git" ]; then
   apt-get install -y git
