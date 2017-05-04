@@ -9,15 +9,23 @@ exit 1
 fi
 
 apt-get update
-apt-get install -y git
-apt-get install -y curl
 
-wget https://storage.googleapis.com/golang/go1.8.1.linux-386.tar.gz
-echo 'export PATH="$PATH:/usr/local/go/bin"' >> ~/.profile
-tar -C /usr/local -xzf go1.8.1.linux-386.tar.gz
-rm go1.8.1.linux-386.tar.gz
-mkdir -p $HOME/go/src 
-chmod -R 777 $HOME/go/src
+if [ -z "which git" ]; then
+  apt-get install -y git
+fi
+
+if [ -z "which curl" ]; then
+  apt-get install -y curl
+fi
+
+if [ -z "echo $GOPATH" ]; then
+  wget https://storage.googleapis.com/golang/go1.8.1.linux-386.tar.gz
+  echo 'export PATH="$PATH:/usr/local/go/bin"' >> ~/.profile
+  tar -C /usr/local -xzf go1.8.1.linux-386.tar.gz
+  rm go1.8.1.linux-386.tar.gz
+  mkdir -p $HOME/go/src 
+  chmod -R 777 $HOME/go/src
+fi
 
 cd ~/Downloads
 wget https://raw.githubusercontent.com/xlucas/go-vim-install/master/install.sh
