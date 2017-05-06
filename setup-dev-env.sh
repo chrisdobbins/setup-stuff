@@ -8,11 +8,11 @@ echo "must be root to run this"
 exit 1
 fi
 
-sudo add-apt-repository universe && sudo add-apt-repository multiverse
+# sudo add-apt-repository universe && sudo add-apt-repository multiverse
 sudo apt-get update
 
 # will allow restricted/proprietary media formats to be played...and a bunch of other stuff
-sudo apt-get install -y ubuntu-restricted-extras
+# sudo apt-get install -y ubuntu-restricted-extras
 
 "hash git" 2> /dev/null
  if [ $? -ne 0 ]; then
@@ -43,6 +43,9 @@ wget https://raw.githubusercontent.com/xlucas/go-vim-install/master/install.sh
 chmod +x install.sh
 ./install.sh -vim
 ./install.sh -work $HOME/go/src
+rm install.sh
 apt-get install -y vim
+
+echo 'All done! Remember to run `source ~/.profile`!'
 
 exit 0
