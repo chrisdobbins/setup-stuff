@@ -1,0 +1,40 @@
+# works on Mac. not all commands are portable
+
+export TERM=xterm-color
+export HISTCONTROL=ignoreboth
+
+
+# git
+alias branchname='git branch | grep "*" | sed -e s/[[:blank:]]//g -e s/*//g'
+ggopen() {
+   $1 $(git grep "$2" | cut -d ":" -f1)
+}
+
+# go
+alias buildrun='go build && ./$(pwd | rev | cut -d/ -f1 | rev)'
+
+# docker
+alias killconts='docker kill $(docker ps | cut -d" " -f1 | tail -n 1)'
+# removes all by default or specified number passed as arg
+removeimgs () {
+  if [ -z $1 ]; then
+    docker rmi -f $(docker images | sed s/[[:space:]][[:space:]]*/" "/g | cut -d" " -f3 | tail -n +2)
+  else
+    docker rmi -f $(docker images | sed s/[[:space:]][[:space:]]*/" "/g | cut -d" " -f3 | tail -n +2 | head -n $1)
+  fi
+}
+
+# system
+findPIDs () {
+    echo $(ps -ax | grep "$1" | grep -v "grep" | cut -d " " -f1)
+}
+fkillbyname () {
+    kill -9 $(findPIDs $1)
+}
+
+alias newpw="uuidgen | sed s/-//g | pbcopy"
+
+# project-specific stuff
+alias localize="export ENVIRONMENT=local"
+alias resetqenv="export CLOUD_AMQP_ACTION_QUEUE=\${ENVIRONMENT}.action CLOUD_AMQP_RESULT_QUEUE=\${ENVIRONMENT}.result CLOUD_AMQP_EXCHANGE=\${ENVIRONMENT}.rights"
+
