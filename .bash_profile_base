@@ -12,6 +12,14 @@ ggopen() {
 
 # go
 alias buildrun='go build && ./$(pwd | rev | cut -d/ -f1 | rev)'
+alias findfailedtests='go test -v $(glide novendor) | grep -A5 "FAIL"'
+findgocomments() {
+  if [ "$1" == "--test" ]; then 
+    git grep "// " -- './*.go'
+  else
+    git grep "// " -- './*.go' ':(exclude)*_test.go'
+  fi
+}
 
 # docker
 alias killconts='docker kill $(docker ps | cut -d" " -f1 | tail -n 1)'
