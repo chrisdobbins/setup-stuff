@@ -34,7 +34,7 @@ removeimgs () {
 
 # system
 findPIDs () {
-    echo $(ps -ax | grep "$1" | grep -v "grep" | cut -d " " -f1)
+    echo $(ps -ax | grep "$1" | grep -v "grep" | cut -d" " -f1)
 }
 fkillbyname () {
     kill -9 $(findPIDs $1)
