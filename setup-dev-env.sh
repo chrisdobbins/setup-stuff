@@ -29,10 +29,19 @@ fi
 "hash go" 2> /dev/null
 if [ $? -ne 0 ]; then
   echo 'Installing Go...'
-  wget https://storage.googleapis.com/golang/go1.8.1.linux-386.tar.gz
-  echo 'export PATH="$PATH:/usr/local/go/bin"' >> ~/.profile
-  tar -C /usr/local -xzf go1.8.1.linux-386.tar.gz
-  rm go1.8.1.linux-386.tar.gz
+# os arch is 32-bit  
+  if [ -z $(uname -m | grep 64) ]; then
+    wget https://storage.googleapis.com/golang/go1.8.3.linux-386.tar.gz
+    echo 'export PATH="$PATH:/usr/local/go/bin"' >> ~/.profile
+    tar -C /usr/local -xzf go1.8.3.linux-386.tar.gz
+    rm go1.8.3.linux-386.tar.gz
+  else
+# os arch is 64-bit
+    wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz
+    echo 'export PATH="$PATH:/usr/local/go/bin"' >> ~/.profile
+    tar -C /usr/local -xzf go1.8.3.linux-amd64.tar.gz
+    rm go1.8.3.linux-amd64.tar.gz
+  fi
   mkdir -p $HOME/go/src 
   chmod -R 777 $HOME/go/src
 fi
