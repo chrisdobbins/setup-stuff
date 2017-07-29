@@ -1,7 +1,6 @@
 #!/bin/bash
 
 user=$(id -u)
-version=1.8
 
 if [ $user -ne 0 ]; then 
 echo "must be root to run this" 
@@ -32,19 +31,22 @@ if [ $? -ne 0 ]; then
 # os arch is 32-bit  
   if [ -z $(uname -m | grep 64) ]; then
     wget https://storage.googleapis.com/golang/go1.8.3.linux-386.tar.gz
-    echo 'export PATH="$PATH:/usr/local/go/bin"' >> ~/.profile
+    echo 'export PATH="$PATH:/usr/local/go/bin"' >> $HOME/finalize.sh
     tar -C /usr/local -xzf go1.8.3.linux-386.tar.gz
     rm go1.8.3.linux-386.tar.gz
   else
 # os arch is 64-bit
     wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz
-    echo 'export PATH="$PATH:/usr/local/go/bin"' >> ~/.profile
+    echo 'export PATH="$PATH:/usr/local/go/bin"' >> $HOME/finalize.sh
     tar -C /usr/local -xzf go1.8.3.linux-amd64.tar.gz
     rm go1.8.3.linux-amd64.tar.gz
   fi
   mkdir -p $HOME/go/src 
   chmod -R 777 $HOME/go/src
 fi
+
+echo 'Installing nvm...'
+wget -q0- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
 
 echo 'Installing vim...'
 cd ~/Downloads
@@ -55,6 +57,6 @@ chmod +x install.sh
 rm install.sh
 apt-get install -y vim
 
-echo 'All done! Remember to run `source ~/.profile`!'
+echo 'All done! Remember to run '"${!HOME}"'/finalize.sh!'
 
 exit 0
