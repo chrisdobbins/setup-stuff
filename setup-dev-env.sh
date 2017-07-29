@@ -31,13 +31,13 @@ if [ $? -ne 0 ]; then
 # os arch is 32-bit  
   if [ -z $(uname -m | grep 64) ]; then
     wget https://storage.googleapis.com/golang/go1.8.3.linux-386.tar.gz
-    echo 'export PATH="$PATH:/usr/local/go/bin"' >> $HOME/finalize.sh
+    echo 'export PATH="$PATH:/usr/local/go/bin"' >> $HOME/.profile
     tar -C /usr/local -xzf go1.8.3.linux-386.tar.gz
     rm go1.8.3.linux-386.tar.gz
   else
 # os arch is 64-bit
     wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz
-    echo 'export PATH="$PATH:/usr/local/go/bin"' >> $HOME/finalize.sh
+    echo 'export PATH="$PATH:/usr/local/go/bin"' >> $HOME/.profile
     tar -C /usr/local -xzf go1.8.3.linux-amd64.tar.gz
     rm go1.8.3.linux-amd64.tar.gz
   fi
@@ -47,6 +47,8 @@ fi
 
 echo 'Installing nvm...'
 wget -q0- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
+echo 'export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' >> $HOME/.profile
 
 echo 'Installing vim...'
 cd ~/Downloads
@@ -57,6 +59,6 @@ chmod +x install.sh
 rm install.sh
 apt-get install -y vim
 
-echo 'All done! Remember to run '"${!HOME}"'/finalize.sh!'
+echo 'All done! Remember to run . '"${!HOME}"'/.profile!'
 
 exit 0
