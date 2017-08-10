@@ -68,7 +68,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # just assuming VS Code isn't installed...
-if [ -z $(uname -m | grep 64) ]; then
+if [ ! -z $(uname -m | grep 64) ]; then
   echo 'Installing Visual Studio Code...'
   curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
   mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
